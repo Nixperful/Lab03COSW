@@ -28,11 +28,6 @@ class TodoApp extends Component {
 
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">TODO React App</h1>
-                </header>
-
                 <br/>
                 <br/>
                 <Card className="todo-form" onSubmit={this.handleSubmit}>
@@ -74,7 +69,7 @@ class TodoApp extends Component {
                 <br/>
                 <br/>
                 <TodoList todoList={this.state.items}/>
-                <Login/>
+                
             </div>
         );
     }
