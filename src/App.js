@@ -1,57 +1,118 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {TodoList} from "./TodoList";
-import DatePicker from 'react-datepicker';
+
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from "moment";
+
 import {Login} from './component/Login.js';
 import TodoApp from './TodoApp';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+
+
+localStorage.setItem("user", "nicolas.osorio@mail.escuelaing.edu.co");
+localStorage.setItem("passw", "12345");
 
 class App extends Component {
 
+    state = {isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")), email:"", password:""};
+    
+
     constructor(props){
         super(props)
-        this.state = { isLoggedIn : false};
+        localStorage.setItem("isLoggedIn", false);
+        this.state = { isLoggedIn : localStorage.getItem("isLoggedIn"), email:"", password:""};
+
     }
+
+    LoginView = () => (
+        <Login 
+        handleUserChange={this.handleUserChange}
+        handlePasswChange={this.handlePasswChange}
+        handleLoginSubmit={this.handleLoginSubmit} />
+    );
     
+    TodoView = () => (
+        <TodoApp />
+    );
+
+
+
     render() {
         
-        const LoginView = () => (
-            <Login/>
-        );
-        
-        const TodoView = () => (
-            <div>
-                <TodoApp/>
-            </div>
-        );
 
+        if(this.state.isLoggedIn){
 
-        return (
-            <Router>
-                <div className="App">
-                    <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo"/>
-                        <h1 className="App-title">TODO React App</h1>
-                    </header>
-
-                    <br/>
-                    <br/>
-
-                    <ul>
-                        <li><Link to="/">Login</Link></li>
-                        <li><Link to="/todo">Todo</Link></li>
-                    </ul>
-
+            return(
+                <Router>
                     <div>
-                        <Route exact path="/" component={LoginView}/>
-                        <Route path="/todo" component={TodoView}/>
+                        
+                        <Route exact path="/" component={this.TodoView} />
+                        
                     </div>
-                </div>
-            </Router>);
+                </Router>     
+            );
+        }
+        else{
+
+            return (
+
+                <Router>
+                    <div className="App">
+                        <header className="App-header">
+                            <img src={logo} className="App-logo" alt="logo"/>
+                            <h1 className="App-title">TODO React App</h1>
+                        </header>
+
+                        <br/>
+                        <br/>
+
+                        <div>
+                            <Route exact path="/" component={this.LoginView}/>
+                        </div>
+                    </div>
+                </Router>
+            );
+        }   
+            
     }
+
+
+    handleUserChange = event => {
+        this.setState({
+            email: event.target.value
+        });
+    }
+    
+    handlePasswChange = event => {
+        this.setState({
+            password: event.target.value
+        });
+    }
+
+    handleLoginSubmit= event => {
+
+        event.preventDefault();
+        
+               
+        if(this.state.email===localStorage.getItem("user") && this.state.password===localStorage.getItem("passw")){
+            localStorage.setItem("isLoggedIn", true);
+            this.setState({
+                isLoggedIn: true,
+            });
+        }
+        else{
+            localStorage.setItem("isLoggedIn", false);
+            this.setState({
+                isLoggedIn: false,
+            });
+        }
+
+
+        
+    }
+
+
+
 
 }
 

@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {TodoList} from "./TodoList";
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
-import {Login} from './component/Login';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -38,7 +35,7 @@ class TodoApp extends Component {
                     </label>
 
                 
-
+                    
                     <TextField id="text" type="text" onChange={this.handleTextChange} value={this.state.text}/>
 
                     <br/>
@@ -61,10 +58,8 @@ class TodoApp extends Component {
                     <Button variant="fab" aria-label="Add" color="primary" size="large" onClick={this.handleSubmit} >
                         Add task #{this.state.items.length + 1}
                     </Button>
-
-
-                    
                     </CardActions>
+
                 </Card>
                 <br/>
                 <br/>
@@ -83,7 +78,7 @@ class TodoApp extends Component {
     handlePriorityChange(e) {
         this.setState({
             priority: e.target.value
-        });
+        }); 
     }
 
     handleDateChange(date) {
@@ -107,10 +102,10 @@ class TodoApp extends Component {
         };
         this.setState(prevState => ({
             items: prevState.items.concat(newItem),
-            text: '',
-            priority: '',
-            dueDate: ''
-        }));
+            text: "",
+            priority: "",
+            dueDate: "" })
+        );
     }
 
 }
