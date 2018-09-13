@@ -20,7 +20,7 @@ class App extends Component {
     constructor(props){
         super(props)
         localStorage.setItem("isLoggedIn", false);
-        this.state = { isLoggedIn : localStorage.getItem("isLoggedIn"), email:"", password:""};
+        this.state = { isLoggedIn : false, email:"", password:""};
 
     }
 
@@ -100,6 +100,7 @@ class App extends Component {
                 isLoggedIn: true,
             });
         }
+        
         else{
             localStorage.setItem("isLoggedIn", false);
             this.setState({

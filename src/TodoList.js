@@ -1,5 +1,6 @@
 import React from 'react';
 import {Todo} from './Todo'
+import { Paper } from '@material-ui/core';
 
 export class TodoList extends React.Component {
 
@@ -12,18 +13,20 @@ export class TodoList extends React.Component {
         });
 
         return (
-            <table>
-                <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Priority</th>
-                    <th>Due Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                {todoList}
-                </tbody>
-            </table>
+            <Paper>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Priority</th>
+                        <th>Due Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {todoList}
+                    </tbody>
+                </table>
+            </Paper>
         );
 
 

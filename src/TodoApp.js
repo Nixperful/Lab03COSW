@@ -13,7 +13,7 @@ class TodoApp extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {items: [], text: '', priority: 0, dueDate: moment()};
+        this.state = {items: [], text: "", priority: 0, dueDate: moment()};
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handlePriorityChange = this.handlePriorityChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -27,43 +27,40 @@ class TodoApp extends Component {
             <div className="App">
                 <br/>
                 <br/>
-                <Card className="todo-form" onSubmit={this.handleSubmit}>
+                <Card onSubmit={this.handleSubmit} >
                     <CardContent>
-                    <h3>New TODO</h3>
-                    <label htmlFor="text" className="right-margin">
-                        Task:
-                    </label>
+                        <h3>New TODO</h3>
+                        <label htmlFor="text" className="right-margin">
+                            Task:
+                        </label>
 
-                
                     
-                    <TextField id="text" type="text" onChange={this.handleTextChange} value={this.state.text}/>
+                        
+                        <TextField id="text" type="text" onChange={this.handleTextChange} value={this.state.text}/>
 
-                    <br/>
-                    <br/>
-                    <label htmlFor="priority" className="right-margin">
-                        Priority:
-                    </label>
-                    <TextField id="priority" type="number" onChange={this.handlePriorityChange} value={this.state.priority}/>
-                    <br/>
-                    <br/>
-                    <TextField id="date" label="Delivery Date:" type="date" onChange={this.props.handleDateChange} value={this.state.date}
-                    InputLabelProps={{
-                        shrink: true
-                    }}
-/>
+                        <br/>
+                        <br/>
+                        <label htmlFor="priority" className="right-margin">
+                            Priority:
+                        </label>
+                        <TextField id="priority" type="number" onChange={this.handlePriorityChange} value={this.state.priority}/>
+                        <br/>
+                        <br/>
+                        <TextField id="date" label="Delivery Date:" type="date" onChange={this.props.handleDateChange} value={this.state.date}/>
 
                     </CardContent> 
                     <br/>
                     <CardActions style={{justifyContent: 'center'}}>
-                    <Button variant="fab" aria-label="Add" color="primary" size="large" onClick={this.handleSubmit} >
-                        Add task #{this.state.items.length + 1}
-                    </Button>
+                        
+                        <Button variant="fab" aria-label="Add" color="primary" size="large" onClick={this.handleSubmit} >
+                            Add task #{this.state.items.length + 1}
+                        </Button>
                     </CardActions>
-
+                    <TodoList todoList={this.state.items}/>
                 </Card>
                 <br/>
                 <br/>
-                <TodoList todoList={this.state.items}/>
+                
                 
             </div>
         );
@@ -81,9 +78,9 @@ class TodoApp extends Component {
         }); 
     }
 
-    handleDateChange(date) {
+    handleDateChange(e) {
         this.setState({
-            dueDate: date
+            dueDate: e.target.value
         });
     }
 
@@ -93,18 +90,17 @@ class TodoApp extends Component {
 
         if (!this.state.text.length || !this.state.priority.length || !this.state.dueDate)
             return;
-
+        
         const newItem = {
             text: this.state.text,
             priority: this.state.priority,
-            dueDate: this.state.dueDate,
-
+            dueDate: this.state.dueDate
         };
         this.setState(prevState => ({
             items: prevState.items.concat(newItem),
             text: "",
             priority: "",
-            dueDate: "" })
+            dueDate: ""})
         );
     }
 
