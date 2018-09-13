@@ -9,19 +9,20 @@ import TodoApp from './TodoApp';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 
+
 localStorage.setItem("user", "nicolas.osorio@mail.escuelaing.edu.co");
 localStorage.setItem("passw", "12345");
 
+
+
 class App extends Component {
 
-    state = {isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")), email:"", password:""};
     
+    state = {isLoggedIn: false, email:"", password:""};
 
     constructor(props){
         super(props)
-        localStorage.setItem("isLoggedIn", false);
-        this.state = { isLoggedIn : false, email:"", password:""};
-
+        localStorage.setItem("isLoggedIn", this.state.isLoggedIn);
     }
 
     LoginView = () => (
@@ -95,21 +96,13 @@ class App extends Component {
         
                
         if(this.state.email===localStorage.getItem("user") && this.state.password===localStorage.getItem("passw")){
-            localStorage.setItem("isLoggedIn", true);
             this.setState({
                 isLoggedIn: true,
             });
+            localStorage.setItem("isLoggedIn", true);
+            
         }
-        
-        else{
-            localStorage.setItem("isLoggedIn", false);
-            this.setState({
-                isLoggedIn: false,
-            });
-        }
-
-
-        
+                
     }
 
 
