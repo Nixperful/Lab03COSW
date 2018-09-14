@@ -96,8 +96,8 @@ class App extends Component {
         
         let self = this;
         axios.post('http://localhost:8080/user/login', {
-            user: this.state.email,
-            pass: this.state.password
+            email: this.state.email,
+            password: this.state.password
         })
             .then(function (response) {
                 localStorage.setItem("token", response.data.accessToken);
