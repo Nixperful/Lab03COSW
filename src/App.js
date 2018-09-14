@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import {Login} from './component/Login.js';
 import TodoApp from './TodoApp';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-
+import axios from "axios";
 
 
 localStorage.setItem("user", "nicolas.osorio@mail.escuelaing.edu.co");
@@ -94,19 +94,29 @@ class App extends Component {
 
         event.preventDefault();
         
-               
-        if(this.state.email===localStorage.getItem("user") && this.state.password===localStorage.getItem("passw")){
-            this.setState({
-                isLoggedIn: true,
+        let self = this;
+        axios.post('http://localhost:8080/user/login', {
+            user: this.state.email,
+            pass: this.state.password
+        })
+            .then(function (response) {
+                localStorage.setItem("token", response.data.accessToken);
+                if (localStorage.getItem("token")!= null) {
+                    self.setState({
+                        isLoggedIn: true,
+                    });
+                    localStorage.setItem("isLoggedIn", true);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
             });
-            localStorage.setItem("isLoggedIn", true);
-            
-        }
+        
+
+
+
                 
     }
-
-
-
 
 }
 

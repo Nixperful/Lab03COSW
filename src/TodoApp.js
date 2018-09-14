@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import {addNewTodo , getTodos} from './AxiosConnection';
 
 class TodoApp extends Component {
 
@@ -18,6 +19,8 @@ class TodoApp extends Component {
         this.handlePriorityChange = this.handlePriorityChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.addTodo= this.addTodo.bind(this);
+        this.assignTodoList= this.assignTodoList.bind(this);
     }
 
 
@@ -96,13 +99,42 @@ class TodoApp extends Component {
             priority: this.state.priority,
             dueDate: this.state.dueDate
         };
-        this.setState(prevState => ({
-            todos: prevState.todos.concat(newTodo),
-            text: "",
-            priority: ""
-             })
-        );
+        this.addTodo(newTodo);
     }
+
+
+    addTodo(todo){
+        var self = this;
+        var callback = {
+            onSuccess: function(){
+                self.assignTodoList();
+            },
+            onFailed: function(error){
+                console.log(error);
+            }
+        };
+        addNewTodo(todo, callback);
+    }
+
+    assignTodoList(){
+        var self = this;
+        var callback = {
+            onSuccess: function(response){
+                self.setState({
+                    todos: response.data, text: "", priority: 0, dueDate: ""
+                });
+            },
+            onFailed: function(error){
+                console.log(error);
+            }
+        };
+        getTodos(callback);
+    }
+
+
+
+
+
 
 }
 
