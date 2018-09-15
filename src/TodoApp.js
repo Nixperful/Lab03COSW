@@ -14,13 +14,13 @@ class TodoApp extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {todos: [], text: "", priority: 0, dueDate: moment()};
+        this.state = {todos: [], text: "", priority: 1, dueDate: moment()};
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handlePriorityChange = this.handlePriorityChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addTodo= this.addTodo.bind(this);
-        this.assignTodoList= this.assignTodoList.bind(this);
+        this.getTodoList= this.getTodoList.bind(this);
     }
 
 
@@ -107,7 +107,7 @@ class TodoApp extends Component {
         var self = this;
         var callback = {
             onSuccess: function(){
-                self.assignTodoList();
+                self.getTodoList();
             },
             onFailed: function(error){
                 console.log(error);
@@ -116,12 +116,12 @@ class TodoApp extends Component {
         addNewTodo(todo, callback);
     }
 
-    assignTodoList(){
+    getTodoList(){
         var self = this;
         var callback = {
             onSuccess: function(response){
                 self.setState({
-                    todos: response.data, text: "", priority: 0, dueDate: ""
+                    todos: response.data, text: "", priority: 1, dueDate: ""
                 });
             },
             onFailed: function(error){

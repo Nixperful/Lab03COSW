@@ -11,11 +11,18 @@ const client = axios.create({
 
 
   export function getTodos(callback) {
-    client.get("/todos").then(callback);
+    client.get("/todos").then(function (response) {
+      callback.onSuccess(response);
+    })
+    .catch(function (error) {
+      callback.onFailed(error);
+    });
   }
 
   export function addNewTodo(todo, callback) {
-      client.post("", { todo })
-      .then(callback)
+      client.post("/todos", { todo })
+      .then(function () {
+        callback.onSuccess();
+      })
       .catch(error => console.log(error));
   }
