@@ -21,11 +21,12 @@ class TodoApp extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addTodo= this.addTodo.bind(this);
         this.getTodoList= this.getTodoList.bind(this);
+        this.getTodoList();
     }
 
 
     render() {
-
+        
         return (
             <div className="App">
                 <br/>
@@ -113,7 +114,7 @@ class TodoApp extends Component {
                 console.log(error);
             }
         };
-        addNewTodo(todo, callback);
+        addNewTodo(callback,todo);
     }
 
     getTodoList(){
@@ -121,7 +122,7 @@ class TodoApp extends Component {
         var callback = {
             onSuccess: function(response){
                 self.setState({
-                    todos: response.data, text: "", priority: 1, dueDate: ""
+                    todos: response.data, text: "", priority: 0, dueDate: ""
                 });
             },
             onFailed: function(error){
